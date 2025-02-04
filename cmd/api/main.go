@@ -11,6 +11,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/NazarShtiyuk/greenlight/internal/data"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
@@ -31,6 +32,7 @@ type config struct {
 type application struct {
 	config config
 	logger *slog.Logger
+	models data.Models
 }
 
 func main() {
@@ -66,6 +68,7 @@ func main() {
 	app := &application{
 		logger: logger,
 		config: cfg,
+		models: data.NewModels(db),
 	}
 
 	srv := http.Server{
